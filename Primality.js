@@ -12,6 +12,12 @@ class Generators {
                 yield i++
             }
         }
+
+        this.rand = function* rand(end) {
+            while (true) {
+                yield Math.floor(Math.random() * Math.floor(end))
+            }   
+        }
                 
         // Generate all natural numbers up to max
         this.natLimit = function* natLimit(max) {
@@ -76,6 +82,27 @@ class Prime {
             }
         }
 
+        this.randomPrimes = function* randomPrimes() {
+            for (let x of this.g.map(this.g.rand(2999999999999999), x => [this.isPrime(x), x])) {
+                if (x[0]) yield x[1]
+            }
+        }
+
+        this.randomComposite = function* randomComposite() {
+            const primes = this.randomPrimes(99999999999999) 
+            for (let x of primes) {
+                const next = primes.next().value
+                yield {
+                    composite: x*next,
+                    prime1: x,
+                    prime2: next,
+                    proof: ((x*next)/ x == next) ? 
+                            `composite ${x*next} is composed of ${x}, and ${next}.[${(x*next)/x == next}]` :
+                            'Cannot Prove. Precision Lost'
+                }
+            }
+        }
+
         // Calculate if number is prime
         this.isPrime = function isPrime(toFactor) {
             const max = Math.ceil(Math.sqrt(toFactor + 1))
@@ -89,8 +116,13 @@ class Prime {
 
 const p = new Prime
 
-// To actually run it.
-for (let x of p.allPrimes(26710122)) {
+// // Generate primes starting at count
+// for (let x of p.allPrimes(99999999999999)) {
+//     console.log(x)
+// }
+
+// // Generate Random Composite numbers
+for (let x of p.randomComposite()) {
     console.log(x)
 }
 
