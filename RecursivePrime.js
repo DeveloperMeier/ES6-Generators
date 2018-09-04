@@ -75,7 +75,7 @@ function forall(it, f) {
 }
 
 // To actually run it.
-for (let x of allPrimes(2000000)) {
+for (let x of allPrimes(2000000000000000)) {
     console.log(x)
 }
 
