@@ -61,7 +61,7 @@ function isPrime(toFactor) {
     const max = Math.ceil(Math.sqrt(toFactor + 1))
     if (toFactor == 1 || toFactor == 2 || toFactor == 3 || toFactor == 5) return true // Shortcut for easy values
     if (toFactor % 2 == 0 || toFactor % 3 == 0|| toFactor % 5 == 0) return false // Completely remove need to process evens, divisible by 3, and divisble by 5
-    return forall(range(6, max - 1), x => max % x)
+    return forall(range(6, max + 1), x => toFactor % x)
 }
 
 // True if all Iterable values meet critera `f`
@@ -75,7 +75,7 @@ function forall(it, f) {
 }
 
 // To actually run it.
-for (let x of allPrimes()) {
+for (let x of allPrimes(2000000)) {
     console.log(x)
 }
 
