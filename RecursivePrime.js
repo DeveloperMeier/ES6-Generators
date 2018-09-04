@@ -58,7 +58,7 @@ function* allPrimes(startAt = 0) {
 // FP Methods for Generators
 // Calculate if number is prime
 function isPrime(toFactor) {
-    const max = Math.ceil(Math.sqrt(toFactor))
+    const max = Math.ceil(Math.sqrt(toFactor + 1))
     if (toFactor == 1 || toFactor == 2 || toFactor == 3 || toFactor == 5) return true // Shortcut for easy values
     if (toFactor % 2 == 0 || toFactor % 3 == 0|| toFactor % 5 == 0) return false // Completely remove need to process evens, divisible by 3, and divisble by 5
     return forall(range(6, max - 1), x => max % x)
@@ -75,7 +75,7 @@ function forall(it, f) {
 }
 
 // To actually run it.
-for (let x of allPrimes(2000000000)) {
+for (let x of allPrimes()) {
     console.log(x)
 }
 
